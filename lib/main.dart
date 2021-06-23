@@ -10,7 +10,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: MyHomePage(title: 'My home page'),
+      home: FutureBuilder(
+        future: Future.delayed(
+            Duration(seconds: 3),
+                () => 0
+        ),
+        builder: (context, data) {
+          if(data.hasData) {
+            return MyHomePage(title: 'My home page');
+          }
+          return SplashPage();
+        },
+      ),
     );
   }
 }
