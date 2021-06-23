@@ -6,13 +6,31 @@ void main() {
   runApp(MyApp());
 }
 
+enum SplashScreenLoading {
+  loading,
+  finished,
+}
+
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: SplashScreen()
+      home: FutureBuilder<SplashScreenLoading>(
+        initialData: SplashScreenLoading.loading,
+        future: Future.delayed(Duration(seconds: 3), () => SplashScreenLoading.finished),
+        builder: (context, data) {
+          switch(data.data) {
+            case SplashScreenLoading.loading:
+              return Material(child: SplashPage());
+            case SplashScreenLoading.finished:
+              return MyHomePage(title: 'My home page');
+            default:
+              throw Exception('Geht net');
+          }
+        },
+      ),
     );
   }
 }
@@ -63,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-// AppStart - SplashPage
+// AppStart - SplashPages
 // Nach 3 sec soll die Homepage angezeigt werden
 
 class SplashScreen extends StatefulWidget {
@@ -88,19 +106,6 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Center(
         child: Image.asset('assets/images/logo.png'),
       ),
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-          child: Text(
-            "Welcome to home page",
-            style: TextStyle(fontSize: 25.0),
-          )),
     );
   }
 }
