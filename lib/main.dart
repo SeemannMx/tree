@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -34,7 +36,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage(this.title);
   final String title;
 
   @override
@@ -82,13 +84,28 @@ class _MyHomePageState extends State<MyHomePage> {
 // AppStart - SplashPages
 // Nach 3 sec soll die Homepage angezeigt werden
 
-class SplashPage extends StatelessWidget {
-  const SplashPage({Key key}) : super(key: key);
+class SplashScreen extends StatefulWidget {
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Timer(
+        Duration(seconds: 3),
+            () => Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (BuildContext context) => MyHomePage("Homepage"))));
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(child: Text('splash-page')),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Image.asset('assets/images/logo.png'),
+      ),
     );
   }
 }
