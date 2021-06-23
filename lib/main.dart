@@ -20,12 +20,12 @@ class MyApp extends StatelessWidget {
         future: Future.delayed(Duration(seconds: 3), () => SplashScreenLoading.finished),
         builder: (context, data) {
           switch(data.data) {
-            case SplashScreenLoading.finished:
-              return MyHomePage(title: 'My home page');
             case SplashScreenLoading.loading:
               return Material(child: SplashPage());
+            case SplashScreenLoading.finished:
+              return MyHomePage(title: 'My home page');
             default:
-              throw Exception('Geht gar net');
+              throw Exception('Geht net');
           }
         },
       ),
@@ -79,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-// AppStart - SplashPage
+// AppStart - SplashPages
 // Nach 3 sec soll die Homepage angezeigt werden
 
 class SplashPage extends StatelessWidget {
