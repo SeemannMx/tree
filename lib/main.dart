@@ -1,7 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(MyApp());
+}
+
+enum SplashScreenLoading {
+  loading,
+  finished,
 }
 
 class MyApp extends StatelessWidget {
@@ -10,13 +17,26 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: FutureBuilder<SplashScreenLoading>(
+        initialData: SplashScreenLoading.loading,
+        future: Future.delayed(Duration(seconds: 3), () => SplashScreenLoading.finished),
+        builder: (context, data) {
+          switch(data.data) {
+            case SplashScreenLoading.loading:
+              return Material(child: SplashScreen());
+            case SplashScreenLoading.finished:
+              return MyHomePage('My home page');
+            default:
+              throw Exception('Geht net');
+          }
+        },
+      ),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage(this.title);
   final String title;
 
   @override
@@ -61,16 +81,23 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-// AppStart - SplashPage
+// AppStart - SplashPages
 // Nach 3 sec soll die Homepage angezeigt werden
 
-class SplashPage extends StatelessWidget {
-  const SplashPage({Key key}) : super(key: key);
+class SplashScreen extends StatefulWidget {
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(child: Text('splash-page')),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Image.asset('assets/images/logo.png'),
+      ),
     );
   }
 }
