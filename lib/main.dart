@@ -19,10 +19,14 @@ class MyApp extends StatelessWidget {
         initialData: SplashScreenLoading.loading,
         future: Future.delayed(Duration(seconds: 3), () => SplashScreenLoading.finished),
         builder: (context, data) {
-          if (data.data == SplashScreenLoading.finished) {
-            return MyHomePage(title: 'My home page');
+          switch(data.data) {
+            case SplashScreenLoading.finished:
+              return MyHomePage(title: 'My home page');
+            case SplashScreenLoading.loading:
+              return SplashPage();
+            default:
+              throw Exception('Geht gar net');
           }
-          return SplashPage();
         },
       ),
     );
