@@ -4,19 +4,22 @@ void main() {
   runApp(MyApp());
 }
 
+enum SplashScreenLoading {
+  loading,
+  finished,
+}
+
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: FutureBuilder(
-        future: Future.delayed(
-            Duration(seconds: 3),
-                () => 0
-        ),
+      home: FutureBuilder<SplashScreenLoading>(
+        initialData: SplashScreenLoading.loading,
+        future: Future.delayed(Duration(seconds: 3), () => SplashScreenLoading.finished),
         builder: (context, data) {
-          if(data.hasData) {
+          if (data.data == SplashScreenLoading.finished) {
             return MyHomePage(title: 'My home page');
           }
           return SplashPage();
@@ -45,6 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    showDialog(context: context, builder: (context) => SplashPage());
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
