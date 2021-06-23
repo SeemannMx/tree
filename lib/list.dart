@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class MyList extends StatefulWidget {
-  const MyList({Key key}) : super(key: key);
+class MyList extends StatelessWidget{
 
-  @override
-  _MyListState createState() => _MyListState();
-}
+  MyList(this.count);
 
-class _MyListState extends State<MyList> {
+  final int count;
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: 3,
-        itemBuilder: (context, index) {
-          return Container(
-            child: Text("Hello World"),
-            color: Colors.blue,
-          );
-        });
+      itemCount: count,
+      itemBuilder: (context, index) {
+        return Container(
+          margin: EdgeInsets.all(16),
+          padding: EdgeInsets.all(16),
+          child: Text("Hello World"),
+          color: Colors.blue,
+        );
+      },
+    );
   }
 }
