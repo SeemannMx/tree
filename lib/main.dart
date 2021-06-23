@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
             case SplashScreenLoading.finished:
               return MyHomePage(title: 'My home page');
             case SplashScreenLoading.loading:
-              return SplashPage();
+              return Material(child: SplashPage());
             default:
               throw Exception('Geht gar net');
           }
@@ -52,7 +52,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    showDialog(context: context, builder: (context) => SplashPage());
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
