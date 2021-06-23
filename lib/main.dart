@@ -23,9 +23,9 @@ class MyApp extends StatelessWidget {
         builder: (context, data) {
           switch(data.data) {
             case SplashScreenLoading.loading:
-              return Material(child: SplashPage());
+              return Material(child: SplashScreen());
             case SplashScreenLoading.finished:
-              return MyHomePage(title: 'My home page');
+              return MyHomePage('My home page');
             default:
               throw Exception('Geht net');
           }
